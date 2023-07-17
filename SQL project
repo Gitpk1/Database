@@ -1,0 +1,224 @@
+Create  table Actor(
+Act_fname  varchar (20),
+Act_gender varchar (20),
+Act_lname  Varchar(20) 
+);
+
+Create table  Movie(
+mov_id int,
+mov_title varchar (50),
+mov_year int ,
+mov_type varchar (50),
+mov_lang varchar (50),
+mov_dt_rel date ,
+mov_rel_country varchar (50)
+);
+
+create table  reviewer(
+rev_id int,
+rev_name char(50)
+);
+
+
+create table movie_direction(
+dr_id int,
+mov_id int
+);
+
+
+create table genres(
+gen_id int,
+gen_id int
+);
+
+create table rating (
+mov_id int,
+rev_id int,
+rev_stars int,
+num_o_ratings int
+);
+
+create table movie_cast(
+act_id int,
+mov_id int,
+role char (30)
+);
+
+select * from movie_cast
+
+insert  into Movie values
+(101, 'jailer',2023,'drama','tamil','2023-07-13','INDIA'),
+(102, 'annathe',2022,'drama','tamil','2022-08-03','INDIA'),
+(103, 'robo 2.0',2021,'fiction','tamil','2021-03-23','INDIA'),
+(104, 'dangal',2016,'action','hindi','2016-07-23','INDIA'),
+(105, 'sanju',2027,'action','hindi','2018-07-13','INDIA'),
+(106, 'bhubali',2015,'fiction','telugu','2015-07-13','INDIA'),
+(107, 'rx100',2018,'drama','telugu','2019-11-13','INDIA'),
+(108, 'kantara',2022,'fiction','telugu','2022-04-24','INDIA'),
+(109, 'kabza',2023,'action','telugu','2022-06-17','INDIA'),
+reviewer(110, 'hero',2015,'action','tamil','2017-06-27','INDIA');
+
+
+select * from movie
+
+insert  into reviewer values
+(101,'jailer'),
+(102,'annathe'),
+(103,'robo2.0'),
+(104,'Dangal'),
+(105,'sanju'),
+(106,'bahubali'),
+(107,'rx 100'),
+(108,'kantara'),
+(109,'kabza'),
+(110,'hero');
+
+select * from reviewer
+
+select * from rating
+
+
+insert into rating values
+(101,01,3.5,3.2),
+(102,02,3.5,2.2),
+(103,03,3.5,2.4),
+(104,04,2.5,4),
+(105,05,3,2.4),
+(106,06,3.5,4),
+(107,07,3,3),
+(108,08,3.5,2),
+(109,09,4.5,1),
+(110,10,4.5,3);
+
+select * from rating 
+
+select * from actor 
+
+insert into actor values 
+('Rajini','male','Kanth'),
+('Rajini','male','Kanth'),
+('Rajini','male','kanth'),
+('Aamir','male','Khan'),
+('Ranbir','male','Kapoor'),
+('Prabhas','male','Raju'),
+('Siva','male','Karthikeyan'),
+('Rishab','male','Shetty'),
+('Upendra','male','Kumar'),
+('Janvai','female','Laxman');
+
+
+insert into movie_cast
+(1,101,'raghavan'),
+(2,102,'annamalai'),
+(3,103,'chitti'),
+(4,104,'bhaijaan'),
+(5,105,'sanji'),
+(6,106,'amarendra'),
+(7,107,'karithk'),
+(8,'108','ramaswamy'),
+(9,'109','David'),
+(10,'110','laxmi');
+
+select* from movie_cast
+
+select * from movie_direction
+insert into  movie_direction values
+(001,101),
+(002,102),
+(003,103),
+(004,104),
+(005,105),
+(006,106),
+(007,107),
+(008,108),
+(009,109),
+(010,110);
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT mov_title,mov_year 
+FROM movie
+
+SELECT mov_year 
+from movie 
+WHERE mov_title='Jailer' 
+
+
+SELECT mov_title
+from movie 
+Where mov_year=2021
+
+
+SELECT mov_title
+From movie 
+WHERE mov_year<1998
+
+
+select rev_name
+from reviewer
+UNION
+select mov_title
+from movie
+reviewer
+
+SELECT mov_title
+FROM movie
+WHERE mov_id NOT IN
+(
+SELECT mov_id FROM rating
+)
+
+
+
+SELECT  mov_id, mov_title, mov_year
+FROM movie 
+WHERE mov_title LIKE 'dangal'
+Order BY mov_year ASC
+
+
+SELECT act_gender
+FROM actor
+WHERE act_fname='Rajini'
+AND act_lname='kanth'
+
+select * from actor
+
+
+SELECT mov_title, mov_year,mov_type,
+mov_dt_rel,mov_rel_country
+FROM movie
+WHERE mov_rel_country='INDIA'
+
+SELECT mov_title
+FROM movie 
+WHERE mov_id NOT IN 
+(
+SELECT mov_id FROM rating
+)
+
+
+select  movie.mov_id, movie.mov_title FROM 
+ movie LEFT OUTER JOIN movie_cast
+ ON movie.mov_id=movie_cast.mov_id
+ 
+select * from movie
+
+select * from reviewer
+
+select rating.rev_id, rating.rev_stars  FROM 
+ rating RIGHT OUTER JOIN reviewer
+ ON reviewer.rev_id=rating.rev_id 
+ 
+ 
+ select rev.rev_name from reviewer As rev
+ JOIN rating AS rat on rev.rev_id=rat.rev_id
+ WHERE rat.rev_stars IS NULL
+
+select movie.mov_id,movie.mov_title FROM 
+ movie  INNER JOIN movie_cast
+ ON movie.mov_id=movie_cast.mov_id
+ 
+
+SELECT m.mov_title, m.mov_year,
+rat.rev_stars,m.mov_rel_country
+FROM movie AS m join rating AS rat ON m.mov_id=rat.mov_id
+WHERE rat.rev_stars IS NOT NULL ORDER BY rat.rev_stars DESC
